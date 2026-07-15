@@ -1,20 +1,30 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import {
-  ShoppingCart, Search, Menu, X, ShieldCheck, CreditCard, Truck, Sparkles,
-  Star, Phone, Mail, Facebook, Instagram, Linkedin, Twitter, Youtube, ArrowLeft, Flower2,
-} from "lucide-react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { useSuspenseQuery, queryOptions } from "@tanstack/react-query";
+import { Suspense } from "react";
+import { ShieldCheck, CreditCard, Truck, Sparkles, Star, ArrowLeft } from "lucide-react";
 import heroProducts from "@/assets/hero-products.jpg";
 import natural from "@/assets/natural-collection.jpg";
-import p1 from "@/assets/product-1.jpg";
-import p2 from "@/assets/product-2.jpg";
-import p3 from "@/assets/product-3.jpg";
-import p4 from "@/assets/product-4.jpg";
 import beforeImg from "@/assets/before.jpg";
 import afterImg from "@/assets/after.jpg";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { ProductCard } from "@/components/ProductCard";
+import { listProducts } from "@/lib/products.functions";
+
+const featuredQuery = queryOptions({
+  queryKey: ["products", "featured"],
+  queryFn: () => listProducts({ data: {} }),
+});
 
 export const Route = createFileRoute("/")({
+  head: () => ({ meta: [
+    { title: "Moonflower — العناية الطبيعية بالبشرة" },
+    { name: "description", content: "منتجات عناية طبيعية للبشرة مستوحاة من نقاء الطبيعة، لإشراقة صحية كل يوم." },
+  ] }),
+  loader: ({ context }) => context.queryClient.ensureQueryData(featuredQuery),
   component: Index,
+  errorComponent: ({ error }) => <div className="p-8 text-center">{error.message}</div>,
+  notFoundComponent: () => <div className="p-8">غير موجود</div>,
 });
 
 const navLinks = [
@@ -31,13 +41,6 @@ const features = [
   { icon: Truck, title: "شحن سريع", desc: "توصيل طلبك في أسرع وقت وأمان لكل أنحاء العالم." },
   { icon: CreditCard, title: "طرق دفع آمنة وسهلة", desc: "ادفع عند الاستلام أو أونلاين عبر بوابات دفع موثوقة." },
   { icon: ShieldCheck, title: "منتجات أصلية 100%", desc: "نضمن لك جودة وأصالة كل صنف وسلامة كل بوم." },
-];
-
-const products = [
-  { name: "صابونة الكركم", price: "43.00 ر.س", img: p1 },
-  { name: "مزيل العرق", price: "43.00 ر.س", img: p2 },
-  { name: "كريم تفتيح", price: "43.00 ر.س", img: p3 },
-  { name: "دلكة سودانية", price: "43.00 ر.س", img: p4 },
 ];
 
 const testimonials = [
