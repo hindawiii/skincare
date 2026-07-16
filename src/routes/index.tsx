@@ -6,6 +6,10 @@ import heroProducts from "@/assets/hero-products.jpg";
 import natural from "@/assets/natural-collection.jpg";
 import beforeImg from "@/assets/before.jpg";
 import afterImg from "@/assets/after.jpg";
+import skinHydrated from "@/assets/skin-hydrated.jpg";
+import skinBalanced from "@/assets/skin-balanced.jpg";
+import skinFirm from "@/assets/skin-firm.jpg";
+import skinGlow from "@/assets/skin-glow.jpg";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ProductCard } from "@/components/ProductCard";
@@ -84,6 +88,33 @@ function Index() {
             <h2 className="text-3xl font-bold mb-3 text-primary">Natural Bloom</h2>
             <p className="text-muted-foreground mb-4">مكوّنات نباتية 100% مستخلصة بعناية لتمنحك بشرة نضرة وصحية.</p>
             <Link to="/boxes"><Button>اكتشف البوكسات</Button></Link>
+          </div>
+        </section>
+
+        <section className="container mx-auto px-4 py-12">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">اختاري بشرتك</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {[
+              { img: skinHydrated, label: "بشرة مرطبة", tone: "oklch(0.25 0.05 240)" },
+              { img: skinBalanced, label: "بشرة موحّدة", tone: "oklch(0.22 0.08 150)" },
+              { img: skinFirm, label: "بشرة مشدودة", tone: "oklch(0.28 0.08 300)" },
+              { img: skinGlow, label: "بشرة مشرقة", tone: "oklch(0.35 0.15 25)" },
+            ].map((c) => (
+              <Link
+                key={c.label}
+                to="/products"
+                search={{ category: "skincare" } as never}
+                className="group relative rounded-2xl overflow-hidden aspect-[4/5] block shadow-md hover:shadow-xl transition-shadow"
+              >
+                <img src={c.img} alt={c.label} loading="lazy" width={1024} height={1024} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div
+                  className="absolute bottom-0 inset-x-0 py-3 px-4 text-white text-center font-bold text-sm md:text-base"
+                  style={{ background: c.tone }}
+                >
+                  {c.label}
+                </div>
+              </Link>
+            ))}
           </div>
         </section>
 
