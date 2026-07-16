@@ -103,7 +103,6 @@ function Index() {
               <Link
                 key={c.label}
                 to="/products"
-                search={{ category: "skincare" } as never}
                 className="group relative rounded-2xl overflow-hidden aspect-[4/5] block shadow-md hover:shadow-xl transition-shadow"
               >
                 <img src={c.img} alt={c.label} loading="lazy" width={1024} height={1024} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
