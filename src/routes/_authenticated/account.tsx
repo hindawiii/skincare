@@ -28,9 +28,19 @@ function AccountPage() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault(); setLoading(true);
-    try { await save({ data: form }); toast.success("تم الحفظ"); }
-    catch (err) { toast.error(err instanceof Error ? err.message : "خطأ"); }
-    finally { setLoading(false); }
+    try {
+      await save({ data: form });
+      const p = await load();
+      if (p) setForm({
+        full_name: p.full_name ?? "",
+        phone: p.phone ?? "",
+        address: p.address ?? "",
+        city: p.city ?? "",
+      });
+      toast.success("تم حفظ المعلومات بنجاح");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "حدث خطأ أثناء الحفظ");
+    } finally { setLoading(false); }
   }
 
   return (
