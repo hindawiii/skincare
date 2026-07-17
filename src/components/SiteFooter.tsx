@@ -20,10 +20,10 @@ export function SiteFooter() {
         {/* Brand */}
         <div className="order-3 md:order-1 text-center md:text-right">
           <div className="inline-block bg-white rounded-2xl px-6 py-4 mb-5 shadow-lg">
-            <h3 className="text-3xl font-black text-primary tracking-tight">Moonflower</h3>
-            <p className="text-xs text-muted-foreground mt-1">NATURAL SKINCARE</p>
+            <h3 className="text-2xl font-bold text-primary tracking-tight" style={{ fontFamily: "var(--font-latin)" }}>So Beauty</h3>
+            <p className="text-xs text-muted-foreground mt-1" style={{ fontFamily: "var(--font-display)" }}>سو بيوتي · عناية طبيعية</p>
           </div>
-          <h4 className="text-xl font-bold mb-3">روائع العناية</h4>
+          <h4 className="text-lg font-bold mb-3" style={{ fontFamily: "var(--font-display)" }}>روائع العناية</h4>
           <p className="text-sm opacity-90 leading-relaxed max-w-sm md:mr-0 md:ml-auto mx-auto">
             نسعى جاهدين لنقدم لكم أفضل منتجات العناية الطبيعية بالبشرة، بأسعار تنافسية وجودة عالية.
             نضمن لكم أن جميع منتجاتنا أصلية بنسبة 100%.
@@ -32,7 +32,7 @@ export function SiteFooter() {
 
         {/* Quick links */}
         <div className="order-2 text-center">
-          <h4 className="text-xl font-bold mb-5">روابط سريعة</h4>
+          <h4 className="text-lg font-bold mb-5" style={{ fontFamily: "var(--font-display)" }}>روابط سريعة</h4>
           <ul className="space-y-3 text-sm inline-block text-right">
             <li><Link to="/" className="flex items-center gap-3 hover:opacity-80"><Home className="w-4 h-4" /> الرئيسية</Link></li>
             <li><Link to="/products" className="flex items-center gap-3 hover:opacity-80"><Store className="w-4 h-4" /> المتجر</Link></li>
@@ -43,18 +43,18 @@ export function SiteFooter() {
 
         {/* Contact */}
         <div className="order-1 md:order-3 text-center md:text-right">
-          <h4 className="text-xl font-bold mb-5">معلومات التواصل</h4>
+          <h4 className="text-lg font-bold mb-5" style={{ fontFamily: "var(--font-display)" }}>معلومات التواصل</h4>
           <ul className="space-y-4 text-sm">
             <li className="flex items-center gap-3 justify-center md:justify-end">
-              <span>شارع العناية الطبيعية</span>
+              <span>أم درمان — شارع الوادي</span>
               <MapPin className="w-4 h-4 shrink-0" />
             </li>
             <li className="flex items-center gap-3 justify-center md:justify-end">
-              <span dir="ltr">+20 100 000 0000</span>
+              <span dir="ltr">+249 900 776 688</span>
               <Phone className="w-4 h-4 shrink-0" />
             </li>
             <li className="flex items-center gap-3 justify-center md:justify-end">
-              <span>support@moonflower.com</span>
+              <span dir="ltr">sobeauty.one@gmail.com</span>
               <MessageCircle className="w-4 h-4 shrink-0" />
             </li>
           </ul>
@@ -70,7 +70,7 @@ export function SiteFooter() {
       </div>
 
       <div className="border-t border-white/20 py-4 text-center text-xs opacity-80 relative">
-        © {new Date().getFullYear()} Moonflower. جميع الحقوق محفوظة.
+        © {new Date().getFullYear()} So Beauty · سو بيوتي. جميع الحقوق محفوظة.
       </div>
     </footer>
   );

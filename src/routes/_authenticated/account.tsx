@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/account")({
-  head: () => ({ meta: [{ title: "حسابي — Moonflower" }] }),
+  head: () => ({ meta: [{ title: "حسابي — So Beauty" }] }),
   component: AccountPage,
 });
 

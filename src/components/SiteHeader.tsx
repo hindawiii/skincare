@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ShoppingCart, Heart, User, LogOut, Menu, X, Search, Store } from "lucide-react";
+import { ShoppingCart, Heart, User, LogOut, Menu, X, Search } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useCart } from "@/hooks/useCart";
 import { Button } from "@/components/ui/button";
@@ -20,46 +20,43 @@ export function SiteHeader() {
 
   const nav = [
     { to: "/", label: "الرئيسية", highlight: false },
-    { to: "/offers", label: "عروض الجمال", highlight: false },
-    { to: "/products", label: "وصل حديثاً", highlight: false },
+    { to: "/offers", label: "العروض", highlight: false },
     { to: "/products", label: "العناية بالبشرة", highlight: false },
     { to: "/boxes", label: "بوكسات العناية", highlight: false },
-    { to: "/offers", label: "الأكثر مبيعاً", highlight: false },
-    { to: "/products", label: "بشرتك، لحظتك", highlight: true },
   ] as const;
 
   return (
     <header className="sticky top-0 z-40 bg-background/95 backdrop-blur border-b">
       {/* Top promo banner */}
-      <div className="bg-primary text-primary-foreground text-center py-2 px-4 text-xs sm:text-sm">
-        <p className="font-bold">عناية بالبشرة لكل لحظة</p>
-        <p className="opacity-90 hidden sm:block">
+      <div className="bg-primary text-primary-foreground text-center py-2 px-4 text-[11px] sm:text-xs tracking-wide">
+        <p className="font-semibold">عناية طبيعية بكل تفاصيل بشرتك</p>
+        <p className="opacity-90 hidden sm:block mt-0.5">
           من الترطيب إلى الإشراقة، اكتشفي ما يناسب بشرتك بكبسة واحدة.{" "}
-          <Link to="/products" className="underline font-semibold">تسوّق الآن</Link>
+          <Link to="/products" className="underline font-semibold">تسوّقي الآن</Link>
         </p>
       </div>
 
       {/* Main row */}
-      <div className="container mx-auto px-4 h-16 md:h-20 flex items-center gap-3 md:gap-6">
-        <Link to="/" className="text-2xl md:text-3xl font-black text-primary shrink-0 tracking-tight">
-          Moonflower
+      <div className="container mx-auto px-4 h-16 md:h-20 grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 md:gap-6">
+        <Link to="/" className="shrink-0 leading-tight text-right">
+          <span className="block text-xl md:text-2xl font-bold text-primary" style={{ fontFamily: "var(--font-latin)" }}>
+            So Beauty
+          </span>
+          <span className="block text-[11px] md:text-xs text-muted-foreground -mt-0.5" style={{ fontFamily: "var(--font-display)" }}>
+            سو بيوتي
+          </span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-2 shrink-0 border-r pr-4 text-sm text-muted-foreground">
-          <Store className="w-4 h-4" />
-          <Link to="/boxes" className="hover:text-primary">المتاجر والخدمات</Link>
-        </div>
-
-        <div className="flex-1 relative min-w-0">
+        <div className="relative min-w-0">
           <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
             type="search"
-            placeholder="ابحث عن منتج، ماركة، فئة..."
+            placeholder="ابحثي عن منتج، ماركة، فئة..."
             className="w-full h-10 md:h-11 bg-muted rounded-full pr-10 pl-4 text-sm outline-none focus:ring-2 focus:ring-primary/40"
           />
         </div>
 
-        <div className="flex items-center gap-1 shrink-0">
+        <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
           {email ? (
             <>
               <Link to="/account" className="p-2 rounded-full hover:bg-muted hidden sm:inline-flex" aria-label="حسابي">
@@ -75,10 +72,10 @@ export function SiteHeader() {
             </>
           ) : (
             <Link to="/auth" className="hidden sm:inline-flex">
-              <Button size="sm" className="rounded-full">تسجيل الدخول / إنشاء حساب</Button>
+              <Button size="sm" className="rounded-full text-xs md:text-sm">تسجيل الدخول</Button>
             </Link>
           )}
-          <Link to="/orders" className="p-2 rounded-full hover:bg-muted hidden sm:inline-flex" aria-label="المفضلة">
+          <Link to="/account" className="p-2 rounded-full hover:bg-muted hidden sm:inline-flex" aria-label="المفضلة">
             <Heart className="w-5 h-5" />
           </Link>
           <Link to="/cart" className="relative p-2 rounded-full hover:bg-muted" aria-label="السلة">

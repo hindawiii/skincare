@@ -23,7 +23,7 @@ const featuredQuery = queryOptions({
 
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
-    { title: "Moonflower — العناية الطبيعية بالبشرة" },
+    { title: "So Beauty — العناية الطبيعية بالبشرة" },
     { name: "description", content: "منتجات عناية طبيعية للبشرة مستوحاة من نقاء الطبيعة." },
   ] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(featuredQuery),
@@ -53,14 +53,16 @@ function Index() {
         <section className="bg-primary/5 py-12 md:py-20">
           <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
             <div>
-              <h1 className="text-3xl md:text-5xl font-black text-primary mb-4">جمالك الطبيعي يبدأ من هنا</h1>
-              <p className="text-lg text-muted-foreground mb-6">اكتشفي مجموعة Moonflower من منتجات العناية الطبيعية بالبشرة.</p>
+              <h1 className="text-3xl md:text-5xl font-bold text-primary mb-4 leading-tight">جمالكِ الطبيعي يبدأ من هنا</h1>
+              <p className="text-base md:text-lg text-muted-foreground mb-6 leading-relaxed">
+                اكتشفي مجموعة <span className="font-semibold text-primary" style={{ fontFamily: "var(--font-latin)" }}>So Beauty</span> من منتجات العناية الطبيعية بالبشرة — نقاء نباتي وإشراقة تدوم.
+              </p>
               <div className="flex gap-3 flex-wrap">
                 <Link to="/products"><Button size="lg">تسوّق الآن</Button></Link>
                 <Link to="/offers"><Button size="lg" variant="outline">شاهد العروض</Button></Link>
               </div>
             </div>
-            <img src={heroProducts} alt="Moonflower products" className="rounded-3xl w-full" />
+            <img src={heroProducts} alt="So Beauty products" className="rounded-3xl w-full" />
           </div>
         </section>
 
