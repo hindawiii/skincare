@@ -12,7 +12,7 @@ const boxesQuery = queryOptions({
 });
 
 export const Route = createFileRoute("/boxes")({
-  head: () => ({ meta: [{ title: "بوكسات العناية — Moonflower" }, { name: "description", content: "بوكسات عناية متكاملة بأفضل الأسعار." }] }),
+  head: () => ({ meta: [{ title: "بوكسات العناية — So Beauty" }, { name: "description", content: "بوكسات عناية متكاملة بأفضل الأسعار." }] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(boxesQuery),
   component: Page,
   errorComponent: ({ error }) => <div className="p-8 text-center">{error.message}</div>,

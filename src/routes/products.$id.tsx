@@ -20,7 +20,7 @@ const productQuery = (id: string) => queryOptions({
 
 export const Route = createFileRoute("/products/$id")({
   loader: ({ context, params }) => context.queryClient.ensureQueryData(productQuery(params.id)),
-  head: () => ({ meta: [{ title: "منتج — Moonflower" }] }),
+  head: () => ({ meta: [{ title: "منتج — So Beauty" }] }),
   component: Page,
   errorComponent: ({ error }) => <div className="p-8 text-center">{error.message}</div>,
   notFoundComponent: () => (

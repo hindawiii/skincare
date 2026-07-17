@@ -9,7 +9,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/cart")({
-  head: () => ({ meta: [{ title: "السلة — Moonflower" }] }),
+  head: () => ({ meta: [{ title: "السلة — So Beauty" }] }),
   component: CartPage,
 });
 

@@ -12,7 +12,7 @@ const productsQuery = queryOptions({
 });
 
 export const Route = createFileRoute("/products")({
-  head: () => ({ meta: [{ title: "المنتجات — Moonflower" }, { name: "description", content: "تسوّق مجموعتنا الكاملة من منتجات العناية الطبيعية بالبشرة." }] }),
+  head: () => ({ meta: [{ title: "المنتجات — So Beauty" }, { name: "description", content: "تسوّق مجموعتنا الكاملة من منتجات العناية الطبيعية بالبشرة." }] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
   component: ProductsPage,
   errorComponent: ({ error }) => <div className="p-8 text-center">حدث خطأ: {error.message}</div>,

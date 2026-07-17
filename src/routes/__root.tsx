@@ -79,10 +79,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Moonflower — العناية الطبيعية بالبشرة" },
+      { title: "So Beauty — العناية الطبيعية بالبشرة" },
       { name: "description", content: "منتجات عناية طبيعية للبشرة مستوحاة من نقاء الطبيعة، لإشراقة صحية كل يوم." },
-      { name: "author", content: "Moonflower" },
-      { property: "og:title", content: "Moonflower — العناية الطبيعية بالبشرة" },
+      { name: "author", content: "So Beauty" },
+      { property: "og:title", content: "So Beauty — العناية الطبيعية بالبشرة" },
       { property: "og:description", content: "منتجات عناية طبيعية للبشرة مستوحاة من نقاء الطبيعة." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

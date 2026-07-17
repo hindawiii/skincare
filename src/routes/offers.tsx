@@ -12,7 +12,7 @@ const offersQuery = queryOptions({
 });
 
 export const Route = createFileRoute("/offers")({
-  head: () => ({ meta: [{ title: "العروض — Moonflower" }, { name: "description", content: "أحدث العروض والخصومات على منتجات العناية الطبيعية." }] }),
+  head: () => ({ meta: [{ title: "العروض — So Beauty" }, { name: "description", content: "أحدث العروض والخصومات على منتجات العناية الطبيعية." }] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(offersQuery),
   component: Page,
   errorComponent: ({ error }) => <div className="p-8 text-center">{error.message}</div>,
