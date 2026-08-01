@@ -1,14 +1,18 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ShoppingCart, Heart, User, LogOut, Menu, X, Search } from "lucide-react";
+import { ShoppingCart, User, LogOut, Menu, X, Search } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useCart } from "@/hooks/useCart";
 import { Button } from "@/components/ui/button";
 
 export function SiteHeader() {
   const { count } = useCart();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const [email, setEmail] = useState<string | null>(null);
   const [open, setOpen] = useState(false);
+  const [q, setQ] = useState("");
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? null));
@@ -47,14 +51,24 @@ export function SiteHeader() {
           </span>
         </Link>
 
-        <div className="relative min-w-0">
+        <form
+          className="relative min-w-0"
+          onSubmit={(e) => {
+            e.preventDefault();
+            navigate({ to: "/products", search: q.trim() ? { q: q.trim() } : {} });
+          }}
+          role="search"
+        >
           <Search className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
             type="search"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+            aria-label="بحث في المنتجات"
             placeholder="ابحثي عن منتج، ماركة، فئة..."
             className="w-full h-10 md:h-11 bg-muted rounded-full pr-10 pl-4 text-sm outline-none focus:ring-2 focus:ring-primary/40"
           />
-        </div>
+        </form>
 
         <div className="flex items-center gap-0.5 sm:gap-1 shrink-0">
           {email ? (
@@ -63,21 +77,26 @@ export function SiteHeader() {
                 <User className="w-5 h-5" />
               </Link>
               <button
-                onClick={async () => { await supabase.auth.signOut(); window.location.href = "/"; }}
+                onClick={async () => {
+                  await queryClient.cancelQueries();
+                  queryClient.clear();
+                  await supabase.auth.signOut();
+                  navigate({ to: "/", replace: true });
+                }}
                 className="p-2 rounded-full hover:bg-muted"
                 aria-label="خروج"
               >
                 <LogOut className="w-5 h-5" />
               </button>
+              <Link to="/orders" className="px-2 text-xs font-semibold hover:text-primary hidden md:inline-flex" >
+                طلباتي
+              </Link>
             </>
           ) : (
             <Link to="/auth" className="hidden sm:inline-flex">
               <Button size="sm" className="rounded-full text-xs md:text-sm">تسجيل الدخول</Button>
             </Link>
           )}
-          <Link to="/account" className="p-2 rounded-full hover:bg-muted hidden sm:inline-flex" aria-label="المفضلة">
-            <Heart className="w-5 h-5" />
-          </Link>
           <Link to="/cart" className="relative p-2 rounded-full hover:bg-muted" aria-label="السلة">
             <ShoppingCart className="w-5 h-5" />
             {count > 0 && (

@@ -12,6 +12,9 @@ const productsQuery = queryOptions({
 });
 
 export const Route = createFileRoute("/products")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    q: typeof search.q === "string" ? search.q : undefined,
+  }),
   head: () => ({ meta: [{ title: "المنتجات — So Beauty" }, { name: "description", content: "تسوّق مجموعتنا الكاملة من منتجات العناية الطبيعية بالبشرة." }] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
   component: ProductsPage,
@@ -20,13 +23,16 @@ export const Route = createFileRoute("/products")({
 });
 
 function ProductsPage() {
+  const { q } = Route.useSearch();
   return (
     <div className="min-h-screen flex flex-col">
       <SiteHeader />
       <main className="flex-1 container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">جميع المنتجات</h1>
+        <h1 className="text-2xl md:text-3xl font-bold mb-6">
+          {q ? `نتائج البحث عن: ${q}` : "جميع المنتجات"}
+        </h1>
         <Suspense fallback={<div>جاري التحميل...</div>}>
-          <List />
+          <List q={q} />
         </Suspense>
       </main>
       <SiteFooter />
@@ -34,12 +40,19 @@ function ProductsPage() {
   );
 }
 
-function List() {
+function List({ q }: { q?: string }) {
   const { data } = useSuspenseQuery(productsQuery);
-  if (!data.length) return <p>لا توجد منتجات.</p>;
+  const term = q?.trim().toLowerCase() ?? "";
+  const rows = term
+    ? data.filter((p) =>
+        [p.name, p.description ?? "", p.category ?? ""].join(" ").toLowerCase().includes(term),
+      )
+    : data;
+  if (!rows.length)
+    return <p className="text-muted-foreground">لا توجد منتجات مطابقة{term ? ` لـ "${q}"` : ""}.</p>;
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {data.map((p) => <ProductCard key={p.id} product={p} />)}
+      {rows.map((p) => <ProductCard key={p.id} product={p} />)}
     </div>
   );
 }
