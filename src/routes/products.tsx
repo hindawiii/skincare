@@ -15,7 +15,14 @@ export const Route = createFileRoute("/products")({
   validateSearch: (search: Record<string, unknown>): { q?: string } => ({
     q: typeof search.q === "string" ? search.q : undefined,
   }),
-  head: () => ({ meta: [{ title: "المنتجات — So Beauty" }, { name: "description", content: "تسوّق مجموعتنا الكاملة من منتجات العناية الطبيعية بالبشرة." }] }),
+  head: () => ({ meta: [
+    { title: "المنتجات — So Beauty" },
+    { name: "description", content: "تسوّق مجموعتنا الكاملة من منتجات العناية الطبيعية بالبشرة." },
+    { property: "og:title", content: "المنتجات — So Beauty" },
+    { property: "og:description", content: "تسوّق مجموعتنا الكاملة من منتجات العناية الطبيعية بالبشرة." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(productsQuery),
   component: ProductsPage,
   errorComponent: ({ error }) => <div className="p-8 text-center">حدث خطأ: {error.message}</div>,

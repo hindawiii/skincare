@@ -12,7 +12,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/checkout")({
-  head: () => ({ meta: [{ title: "إتمام الشراء — So Beauty" }] }),
+  head: () => ({ meta: [
+    { title: "إتمام الشراء — So Beauty" },
+    { name: "description", content: "راجعي ملخص الطلب وأكملي معلومات التوصيل في سو بيوتي." },
+    { property: "og:title", content: "إتمام الشراء — So Beauty" },
+    { property: "og:description", content: "راجعي ملخص الطلب وأكملي معلومات التوصيل في سو بيوتي." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: Checkout,
 });
 
