@@ -12,7 +12,7 @@ const productsQuery = queryOptions({
 });
 
 export const Route = createFileRoute("/products")({
-  validateSearch: (search: Record<string, unknown>) => ({
+  validateSearch: (search: Record<string, unknown>): { q?: string } => ({
     q: typeof search.q === "string" ? search.q : undefined,
   }),
   head: () => ({ meta: [{ title: "المنتجات — So Beauty" }, { name: "description", content: "تسوّق مجموعتنا الكاملة من منتجات العناية الطبيعية بالبشرة." }] }),

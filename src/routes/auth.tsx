@@ -12,7 +12,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>) => ({ redirect: typeof s.redirect === "string" ? s.redirect : undefined }),
+  validateSearch: (s: Record<string, unknown>): { redirect?: string } => ({ redirect: typeof s.redirect === "string" ? s.redirect : undefined }),
   head: () => ({ meta: [{ title: "تسجيل الدخول — So Beauty" }, { name: "description", content: "سجّل دخولك أو أنشئ حسابًا جديدًا للاستمتاع بتجربة تسوق كاملة." }] }),
   component: AuthPage,
 });
