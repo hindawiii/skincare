@@ -12,8 +12,15 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 
 export const Route = createFileRoute("/auth")({
-  validateSearch: (s: Record<string, unknown>) => ({ redirect: typeof s.redirect === "string" ? s.redirect : undefined }),
-  head: () => ({ meta: [{ title: "تسجيل الدخول — So Beauty" }, { name: "description", content: "سجّل دخولك أو أنشئ حسابًا جديدًا للاستمتاع بتجربة تسوق كاملة." }] }),
+  validateSearch: (s: Record<string, unknown>): { redirect?: string } => ({ redirect: typeof s.redirect === "string" ? s.redirect : undefined }),
+  head: () => ({ meta: [
+    { title: "تسجيل الدخول — So Beauty" },
+    { name: "description", content: "سجّل دخولك أو أنشئ حسابًا جديدًا للاستمتاع بتجربة تسوق كاملة." },
+    { property: "og:title", content: "تسجيل الدخول — So Beauty" },
+    { property: "og:description", content: "سجّل دخولك أو أنشئ حسابًا جديدًا للاستمتاع بتجربة تسوق كاملة." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: AuthPage,
 });
 

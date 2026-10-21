@@ -9,7 +9,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
 
 export const Route = createFileRoute("/cart")({
-  head: () => ({ meta: [{ title: "السلة — So Beauty" }] }),
+  head: () => ({ meta: [
+    { title: "السلة — So Beauty" },
+    { name: "description", content: "راجعي منتجات سلة التسوق في سو بيوتي قبل متابعة الشراء." },
+    { property: "og:title", content: "السلة — So Beauty" },
+    { property: "og:description", content: "راجعي منتجات سلة التسوق في سو بيوتي قبل متابعة الشراء." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: CartPage,
 });
 

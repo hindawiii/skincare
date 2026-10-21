@@ -20,7 +20,14 @@ const productQuery = (id: string) => queryOptions({
 
 export const Route = createFileRoute("/products/$id")({
   loader: ({ context, params }) => context.queryClient.ensureQueryData(productQuery(params.id)),
-  head: () => ({ meta: [{ title: "منتج — So Beauty" }] }),
+  head: () => ({ meta: [
+    { title: "تفاصيل المنتج — So Beauty" },
+    { name: "description", content: "تعرّفي على وصف المنتج وسعره في سو بيوتي." },
+    { property: "og:title", content: "تفاصيل المنتج — So Beauty" },
+    { property: "og:description", content: "تعرّفي على وصف المنتج وسعره في سو بيوتي." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: Page,
   errorComponent: ({ error }) => <div className="p-8 text-center">{error.message}</div>,
   notFoundComponent: () => (

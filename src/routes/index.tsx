@@ -25,6 +25,10 @@ export const Route = createFileRoute("/")({
   head: () => ({ meta: [
     { title: "So Beauty — العناية الطبيعية بالبشرة" },
     { name: "description", content: "منتجات عناية طبيعية للبشرة مستوحاة من نقاء الطبيعة." },
+    { property: "og:title", content: "So Beauty — العناية الطبيعية بالبشرة" },
+    { property: "og:description", content: "منتجات عناية طبيعية للبشرة مستوحاة من نقاء الطبيعة." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(featuredQuery),
   component: Index,

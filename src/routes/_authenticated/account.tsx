@@ -10,7 +10,14 @@ import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated/account")({
-  head: () => ({ meta: [{ title: "حسابي — So Beauty" }] }),
+  head: () => ({ meta: [
+    { title: "حسابي — So Beauty" },
+    { name: "description", content: "راجعي معلومات حسابك وعنوانك في سو بيوتي." },
+    { property: "og:title", content: "حسابي — So Beauty" },
+    { property: "og:description", content: "راجعي معلومات حسابك وعنوانك في سو بيوتي." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: AccountPage,
 });
 

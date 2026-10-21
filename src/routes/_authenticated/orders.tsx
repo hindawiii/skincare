@@ -6,7 +6,14 @@ import { SiteFooter } from "@/components/SiteFooter";
 import { listMyOrders } from "@/lib/orders.functions";
 
 export const Route = createFileRoute("/_authenticated/orders")({
-  head: () => ({ meta: [{ title: "طلباتي — So Beauty" }] }),
+  head: () => ({ meta: [
+    { title: "طلباتي — So Beauty" },
+    { name: "description", content: "راجعي طلباتك وتفاصيل مشترياتك من سو بيوتي." },
+    { property: "og:title", content: "طلباتي — So Beauty" },
+    { property: "og:description", content: "راجعي طلباتك وتفاصيل مشترياتك من سو بيوتي." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   component: OrdersPage,
 });
 

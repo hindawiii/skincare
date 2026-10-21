@@ -12,7 +12,14 @@ const boxesQuery = queryOptions({
 });
 
 export const Route = createFileRoute("/boxes")({
-  head: () => ({ meta: [{ title: "بوكسات العناية — So Beauty" }, { name: "description", content: "بوكسات عناية متكاملة بأفضل الأسعار." }] }),
+  head: () => ({ meta: [
+    { title: "بوكسات العناية — So Beauty" },
+    { name: "description", content: "بوكسات عناية متكاملة بأفضل الأسعار." },
+    { property: "og:title", content: "بوكسات العناية — So Beauty" },
+    { property: "og:description", content: "بوكسات عناية متكاملة بأفضل الأسعار." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(boxesQuery),
   component: Page,
   errorComponent: ({ error }) => <div className="p-8 text-center">{error.message}</div>,
