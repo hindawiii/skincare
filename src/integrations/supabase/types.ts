@@ -106,13 +106,16 @@ export type Database = {
           category: Database["public"]["Enums"]["product_category"]
           created_at: string
           description: string | null
+          how_to_use: string | null
           id: string
           image_url: string | null
+          ingredients: string | null
           is_active: boolean
           is_featured: boolean
           name: string
           original_price: number | null
           price: number
+          skin_types: string[]
           stock: number
           updated_at: string
         }
@@ -120,13 +123,16 @@ export type Database = {
           category?: Database["public"]["Enums"]["product_category"]
           created_at?: string
           description?: string | null
+          how_to_use?: string | null
           id?: string
           image_url?: string | null
+          ingredients?: string | null
           is_active?: boolean
           is_featured?: boolean
           name: string
           original_price?: number | null
           price: number
+          skin_types?: string[]
           stock?: number
           updated_at?: string
         }
@@ -134,13 +140,16 @@ export type Database = {
           category?: Database["public"]["Enums"]["product_category"]
           created_at?: string
           description?: string | null
+          how_to_use?: string | null
           id?: string
           image_url?: string | null
+          ingredients?: string | null
           is_active?: boolean
           is_featured?: boolean
           name?: string
           original_price?: number | null
           price?: number
+          skin_types?: string[]
           stock?: number
           updated_at?: string
         }
@@ -176,6 +185,44 @@ export type Database = {
         }
         Relationships: []
       }
+      reviews: {
+        Row: {
+          author_name: string
+          comment: string | null
+          created_at: string
+          id: string
+          product_id: string
+          rating: number
+          user_id: string
+        }
+        Insert: {
+          author_name: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          product_id: string
+          rating: number
+          user_id: string
+        }
+        Update: {
+          author_name?: string
+          comment?: string | null
+          created_at?: string
+          id?: string
+          product_id?: string
+          rating?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "reviews_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -209,6 +256,17 @@ export type Database = {
         }
         Returns: boolean
       }
+      place_order: {
+        Args: {
+          _city: string
+          _full_name: string
+          _items: Json
+          _notes: string
+          _phone: string
+          _shipping_address: string
+        }
+        Returns: Json
+      }
     }
     Enums: {
       app_role: "admin" | "user"
@@ -218,7 +276,15 @@ export type Database = {
         | "shipped"
         | "delivered"
         | "cancelled"
-      product_category: "skincare" | "offer" | "box" | "accessory"
+      product_category:
+        | "skincare"
+        | "offer"
+        | "box"
+        | "accessory"
+        | "haircare"
+        | "hair_tools"
+        | "body"
+        | "fragrance"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -354,7 +420,16 @@ export const Constants = {
         "delivered",
         "cancelled",
       ],
-      product_category: ["skincare", "offer", "box", "accessory"],
+      product_category: [
+        "skincare",
+        "offer",
+        "box",
+        "accessory",
+        "haircare",
+        "hair_tools",
+        "body",
+        "fragrance",
+      ],
     },
   },
 } as const
