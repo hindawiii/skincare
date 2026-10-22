@@ -8,7 +8,7 @@ import { listProducts } from "@/lib/products.functions";
 
 const offersQuery = queryOptions({
   queryKey: ["products", "offers"],
-  queryFn: () => listProducts({ data: { category: "offer" } }),
+  queryFn: () => listProducts({ data: { discounted: true } }),
 });
 
 export const Route = createFileRoute("/offers")({
