@@ -34,9 +34,9 @@ export function ProductCard({ product }: { product: ProductCardProduct }) {
         </Link>
         <div className="flex items-center justify-between gap-2">
           <div>
-            <span className="text-primary font-bold">{price} ج.م</span>
+            <span className="text-primary font-bold">{price} ج.س</span>
             {original && original > price && (
-              <span className="text-xs text-muted-foreground line-through mr-2">{original} ج.م</span>
+              <span className="text-xs text-muted-foreground line-through mr-2">{original} ج.س</span>
             )}
           </div>
           <button

@@ -70,10 +70,10 @@ function Checkout() {
             <h2 className="font-bold mb-4">ملخص الطلب</h2>
             {items.map((i) => (
               <div key={i.id} className="flex justify-between text-sm py-1">
-                <span>{i.name} × {i.quantity}</span><span>{(i.price * i.quantity).toFixed(2)} ج.م</span>
+                <span>{i.name} × {i.quantity}</span><span>{(i.price * i.quantity).toFixed(2)} ج.س</span>
               </div>
             ))}
-            <div className="border-t mt-3 pt-3 flex justify-between font-bold"><span>الإجمالي</span><span>{total.toFixed(2)} ج.م</span></div>
+            <div className="border-t mt-3 pt-3 flex justify-between font-bold"><span>الإجمالي</span><span>{total.toFixed(2)} ج.س</span></div>
             <Button type="submit" className="w-full mt-4" disabled={loading || items.length === 0}>{loading ? "..." : "تأكيد الطلب"}</Button>
           </div>
         </form>

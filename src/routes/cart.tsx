@@ -44,7 +44,7 @@ function CartPage() {
                   <img src={resolveProductImage(it.image_url)} alt={it.name} className="w-20 h-20 rounded object-cover" />
                   <div className="flex-1">
                     <h3 className="font-bold">{it.name}</h3>
-                    <p className="text-primary font-bold mt-1">{it.price} ج.م</p>
+                    <p className="text-primary font-bold mt-1">{it.price} ج.س</p>
                     <div className="flex items-center gap-2 mt-2">
                       <button onClick={() => setQty(it.id, it.quantity - 1)} className="p-1 border rounded"><Minus className="w-3 h-3" /></button>
                       <span className="w-8 text-center">{it.quantity}</span>
@@ -57,7 +57,7 @@ function CartPage() {
             </div>
             <div className="p-6 border rounded-xl h-fit">
               <h2 className="font-bold text-lg mb-4">الملخص</h2>
-              <div className="flex justify-between mb-2"><span>الإجمالي</span><span className="font-bold">{total.toFixed(2)} ج.م</span></div>
+              <div className="flex justify-between mb-2"><span>الإجمالي</span><span className="font-bold">{total.toFixed(2)} ج.س</span></div>
               <Button className="w-full mt-4" onClick={() => {
                 if (!authed) navigate({ to: "/auth", search: { redirect: "/checkout" } });
                 else navigate({ to: "/checkout" });
