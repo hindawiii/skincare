@@ -62,8 +62,8 @@ function Detail() {
         <h1 className="text-3xl font-bold mb-3">{p.name}</h1>
         <p className="text-muted-foreground mb-6">{p.description}</p>
         <div className="flex items-baseline gap-3 mb-6">
-          <span className="text-3xl font-bold text-primary">{price} ج.م</span>
-          {original && original > price && <span className="text-lg text-muted-foreground line-through">{original} ج.م</span>}
+          <span className="text-3xl font-bold text-primary">{price} ج.س</span>
+          {original && original > price && <span className="text-lg text-muted-foreground line-through">{original} ج.س</span>}
         </div>
         <Button size="lg" onClick={() => { add({ id: p.id, name: p.name, price, image_url: p.image_url }); toast.success("أُضيف إلى السلة"); }}>
           أضف إلى السلة

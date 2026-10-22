@@ -39,7 +39,7 @@ export const Route = createFileRoute("/")({
 const features = [
   { icon: Sparkles, title: "نتائج فعّالة", desc: "منتجات مصنوعة بعناية لأفضل النتائج." },
   { icon: Truck, title: "شحن سريع", desc: "توصيل طلبك في أسرع وقت." },
-  { icon: CreditCard, title: "دفع آمن", desc: "ادفع عند الاستلام أو أونلاين." },
+  { icon: CreditCard, title: "دفع آمن", desc: "الدفع عند الاستلام بكل أمان." },
   { icon: ShieldCheck, title: "أصلية 100%", desc: "نضمن جودة وأصالة كل منتج." },
 ];
 

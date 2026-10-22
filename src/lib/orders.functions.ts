@@ -20,44 +20,18 @@ export const createOrder = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
   .inputValidator((data: unknown) => createOrderSchema.parse(data))
   .handler(async ({ data, context }) => {
-    const { supabase, userId } = context;
-    const ids = data.items.map((i) => i.product_id);
-    const { data: products, error: pErr } = await supabase
-      .from("products")
-      .select("id,name,price,stock,is_active")
-      .in("id", ids);
-    if (pErr) throw new Error(pErr.message);
-    if (!products || products.length !== ids.length) throw new Error("منتج غير موجود");
-
-    let total = 0;
-    const orderItemsPayload = data.items.map((it) => {
-      const p = products.find((x) => x.id === it.product_id)!;
-      if (!p.is_active) throw new Error(`المنتج ${p.name} غير متوفر`);
-      total += Number(p.price) * it.quantity;
-      return { product_id: p.id, product_name: p.name, quantity: it.quantity, unit_price: p.price };
+    // Atomic: validates stock, uses DB prices, decrements stock, all-or-nothing.
+    const { data: res, error } = await context.supabase.rpc("place_order", {
+      _full_name: data.full_name,
+      _phone: data.phone,
+      _shipping_address: data.shipping_address,
+      _city: data.city,
+      _notes: data.notes ?? "",
+      _items: data.items,
     });
-
-    const { data: order, error: oErr } = await supabase
-      .from("orders")
-      .insert({
-        user_id: userId,
-        total,
-        full_name: data.full_name,
-        phone: data.phone,
-        shipping_address: data.shipping_address,
-        city: data.city,
-        notes: data.notes ?? null,
-      })
-      .select("id")
-      .single();
-    if (oErr) throw new Error(oErr.message);
-
-    const { error: iErr } = await supabase
-      .from("order_items")
-      .insert(orderItemsPayload.map((x) => ({ ...x, order_id: order.id })));
-    if (iErr) throw new Error(iErr.message);
-
-    return { orderId: order.id, total };
+    if (error) throw new Error(error.message);
+    const r = res as { order_id: string; total: number };
+    return { orderId: r.order_id, total: Number(r.total) };
   });
 
 export const listMyOrders = createServerFn({ method: "GET" })
