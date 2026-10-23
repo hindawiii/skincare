@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Trash2, Minus, Plus } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useEffect, useState } from "react";
+import { formatPrice } from "@/lib/store-info";
+import { MAX_QTY } from "@/hooks/useCart";
 
 export const Route = createFileRoute("/cart")({
   head: () => ({ meta: [
@@ -44,12 +46,12 @@ function CartPage() {
                   <img src={resolveProductImage(it.image_url)} alt={it.name} className="w-20 h-20 rounded object-cover" />
                   <div className="flex-1">
                     <h3 className="font-bold">{it.name}</h3>
-                    <p className="text-primary font-bold mt-1">{it.price} ج.س</p>
+                    <p className="text-primary font-bold mt-1">{formatPrice(it.price)}</p>
                     <div className="flex items-center gap-2 mt-2">
-                      <button onClick={() => setQty(it.id, it.quantity - 1)} className="p-1 border rounded"><Minus className="w-3 h-3" /></button>
+                      <button aria-label="إنقاص الكمية" disabled={it.quantity <= 1} onClick={() => setQty(it.id, it.quantity - 1)} className="p-1 border rounded disabled:opacity-40"><Minus className="w-3 h-3" /></button>
                       <span className="w-8 text-center">{it.quantity}</span>
-                      <button onClick={() => setQty(it.id, it.quantity + 1)} className="p-1 border rounded"><Plus className="w-3 h-3" /></button>
-                      <button onClick={() => remove(it.id)} className="p-1 text-destructive mr-auto"><Trash2 className="w-4 h-4" /></button>
+                      <button aria-label="زيادة الكمية" disabled={it.quantity >= MAX_QTY} onClick={() => setQty(it.id, it.quantity + 1)} className="p-1 border rounded disabled:opacity-40"><Plus className="w-3 h-3" /></button>
+                      <button aria-label="حذف من السلة" onClick={() => remove(it.id)} className="p-1 text-destructive mr-auto"><Trash2 className="w-4 h-4" /></button>
                     </div>
                   </div>
                 </div>
@@ -57,7 +59,7 @@ function CartPage() {
             </div>
             <div className="p-6 border rounded-xl h-fit">
               <h2 className="font-bold text-lg mb-4">الملخص</h2>
-              <div className="flex justify-between mb-2"><span>الإجمالي</span><span className="font-bold">{total.toFixed(2)} ج.س</span></div>
+              <div className="flex justify-between mb-2"><span>الإجمالي</span><span className="font-bold">{formatPrice(total)}</span></div>
               <Button className="w-full mt-4" onClick={() => {
                 if (!authed) navigate({ to: "/auth", search: { redirect: "/checkout" } });
                 else navigate({ to: "/checkout" });

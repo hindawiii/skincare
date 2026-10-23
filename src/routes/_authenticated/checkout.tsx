@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import { formatPrice } from "@/lib/store-info";
 
 export const Route = createFileRoute("/_authenticated/checkout")({
   head: () => ({ meta: [
@@ -42,9 +43,13 @@ function Checkout() {
     if (items.length === 0) { toast.error("السلة فارغة"); return; }
     setLoading(true);
     try {
-      await submit({ data: { ...form, items: items.map((i) => ({ product_id: i.id, quantity: i.quantity })) } });
+      const res = await submit({ data: { ...form, items: items.map((i) => ({ product_id: i.id, quantity: i.quantity })) } });
       clear();
-      toast.success("تم إنشاء الطلب بنجاح");
+      toast.success(
+        Math.abs(res.total - total) > 0.009
+          ? `تم إنشاء الطلب. الإجمالي النهائي ${formatPrice(res.total)} حسب الأسعار الحالية`
+          : "تم إنشاء الطلب بنجاح",
+      );
       navigate({ to: "/orders" });
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "خطأ");
@@ -70,10 +75,11 @@ function Checkout() {
             <h2 className="font-bold mb-4">ملخص الطلب</h2>
             {items.map((i) => (
               <div key={i.id} className="flex justify-between text-sm py-1">
-                <span>{i.name} × {i.quantity}</span><span>{(i.price * i.quantity).toFixed(2)} ج.س</span>
+                <span>{i.name} × {i.quantity}</span><span>{formatPrice(i.price * i.quantity)}</span>
               </div>
             ))}
-            <div className="border-t mt-3 pt-3 flex justify-between font-bold"><span>الإجمالي</span><span>{total.toFixed(2)} ج.س</span></div>
+            <div className="border-t mt-3 pt-3 flex justify-between font-bold"><span>الإجمالي</span><span>{formatPrice(total)}</span></div>
+            <p className="text-xs text-muted-foreground mt-2">الدفع نقداً عند الاستلام. رسوم التوصيل تُحدَّد عند تأكيد الطلب.</p>
             <Button type="submit" className="w-full mt-4" disabled={loading || items.length === 0}>{loading ? "..." : "تأكيد الطلب"}</Button>
           </div>
         </form>

@@ -134,11 +134,11 @@ function Detail() {
   );
 }
 
-function Stars({ value, size = 4 }: { value: number; size?: number }) {
+function Stars({ value }: { value: number }) {
   return (
     <span className="inline-flex" aria-label={`${value} من 5`}>
       {[1, 2, 3, 4, 5].map((i) => (
-        <Star key={i} className={`w-${size} h-${size} ${i <= Math.round(value) ? "fill-primary text-primary" : "text-muted-foreground"}`} />
+        <Star key={i} className={`w-4 h-4 ${i <= Math.round(value) ? "fill-primary text-primary" : "text-muted-foreground"}`} />
       ))}
     </span>
   );
