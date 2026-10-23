@@ -9,8 +9,13 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WishlistRouteImport } from './routes/wishlist'
+import { Route as ShippingRouteImport } from './routes/shipping'
+import { Route as ReturnsRouteImport } from './routes/returns'
 import { Route as ProductsRouteImport } from './routes/products'
 import { Route as OffersRouteImport } from './routes/offers'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CartRouteImport } from './routes/cart'
 import { Route as BoxesRouteImport } from './routes/boxes'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -22,6 +27,21 @@ import { Route as AuthenticatedOrdersRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedCheckoutRouteImport } from './routes/_authenticated/checkout'
 import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated/account'
 
+const WishlistRoute = WishlistRouteImport.update({
+  id: '/wishlist',
+  path: '/wishlist',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShippingRoute = ShippingRouteImport.update({
+  id: '/shipping',
+  path: '/shipping',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReturnsRoute = ReturnsRouteImport.update({
+  id: '/returns',
+  path: '/returns',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ProductsRoute = ProductsRouteImport.update({
   id: '/products',
   path: '/products',
@@ -30,6 +50,16 @@ const ProductsRoute = ProductsRouteImport.update({
 const OffersRoute = OffersRouteImport.update({
   id: '/offers',
   path: '/offers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CartRoute = CartRouteImport.update({
@@ -88,8 +118,13 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/boxes': typeof BoxesRoute
   '/cart': typeof CartRoute
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/offers': typeof OffersRoute
   '/products': typeof ProductsRouteWithChildren
+  '/returns': typeof ReturnsRoute
+  '/shipping': typeof ShippingRoute
+  '/wishlist': typeof WishlistRoute
   '/account': typeof AuthenticatedAccountRoute
   '/checkout': typeof AuthenticatedCheckoutRoute
   '/orders': typeof AuthenticatedOrdersRoute
@@ -101,8 +136,13 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/boxes': typeof BoxesRoute
   '/cart': typeof CartRoute
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/offers': typeof OffersRoute
   '/products': typeof ProductsRouteWithChildren
+  '/returns': typeof ReturnsRoute
+  '/shipping': typeof ShippingRoute
+  '/wishlist': typeof WishlistRoute
   '/account': typeof AuthenticatedAccountRoute
   '/checkout': typeof AuthenticatedCheckoutRoute
   '/orders': typeof AuthenticatedOrdersRoute
@@ -116,8 +156,13 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/boxes': typeof BoxesRoute
   '/cart': typeof CartRoute
+  '/contact': typeof ContactRoute
+  '/faq': typeof FaqRoute
   '/offers': typeof OffersRoute
   '/products': typeof ProductsRouteWithChildren
+  '/returns': typeof ReturnsRoute
+  '/shipping': typeof ShippingRoute
+  '/wishlist': typeof WishlistRoute
   '/_authenticated/account': typeof AuthenticatedAccountRoute
   '/_authenticated/checkout': typeof AuthenticatedCheckoutRoute
   '/_authenticated/orders': typeof AuthenticatedOrdersRoute
@@ -131,8 +176,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/boxes'
     | '/cart'
+    | '/contact'
+    | '/faq'
     | '/offers'
     | '/products'
+    | '/returns'
+    | '/shipping'
+    | '/wishlist'
     | '/account'
     | '/checkout'
     | '/orders'
@@ -144,8 +194,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/boxes'
     | '/cart'
+    | '/contact'
+    | '/faq'
     | '/offers'
     | '/products'
+    | '/returns'
+    | '/shipping'
+    | '/wishlist'
     | '/account'
     | '/checkout'
     | '/orders'
@@ -158,8 +213,13 @@ export interface FileRouteTypes {
     | '/auth'
     | '/boxes'
     | '/cart'
+    | '/contact'
+    | '/faq'
     | '/offers'
     | '/products'
+    | '/returns'
+    | '/shipping'
+    | '/wishlist'
     | '/_authenticated/account'
     | '/_authenticated/checkout'
     | '/_authenticated/orders'
@@ -173,12 +233,38 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   BoxesRoute: typeof BoxesRoute
   CartRoute: typeof CartRoute
+  ContactRoute: typeof ContactRoute
+  FaqRoute: typeof FaqRoute
   OffersRoute: typeof OffersRoute
   ProductsRoute: typeof ProductsRouteWithChildren
+  ReturnsRoute: typeof ReturnsRoute
+  ShippingRoute: typeof ShippingRoute
+  WishlistRoute: typeof WishlistRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wishlist': {
+      id: '/wishlist'
+      path: '/wishlist'
+      fullPath: '/wishlist'
+      preLoaderRoute: typeof WishlistRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shipping': {
+      id: '/shipping'
+      path: '/shipping'
+      fullPath: '/shipping'
+      preLoaderRoute: typeof ShippingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/returns': {
+      id: '/returns'
+      path: '/returns'
+      fullPath: '/returns'
+      preLoaderRoute: typeof ReturnsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/products': {
       id: '/products'
       path: '/products'
@@ -191,6 +277,20 @@ declare module '@tanstack/react-router' {
       path: '/offers'
       fullPath: '/offers'
       preLoaderRoute: typeof OffersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/cart': {
@@ -300,8 +400,13 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   BoxesRoute: BoxesRoute,
   CartRoute: CartRoute,
+  ContactRoute: ContactRoute,
+  FaqRoute: FaqRoute,
   OffersRoute: OffersRoute,
   ProductsRoute: ProductsRouteWithChildren,
+  ReturnsRoute: ReturnsRoute,
+  ShippingRoute: ShippingRoute,
+  WishlistRoute: WishlistRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

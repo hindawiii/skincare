@@ -101,14 +101,15 @@ function Index() {
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-8">اختاري بشرتك</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { img: skinHydrated, label: "بشرة مرطبة", tone: "oklch(0.25 0.05 240)" },
-              { img: skinBalanced, label: "بشرة موحّدة", tone: "oklch(0.22 0.08 150)" },
-              { img: skinFirm, label: "بشرة مشدودة", tone: "oklch(0.28 0.08 300)" },
-              { img: skinGlow, label: "بشرة مشرقة", tone: "oklch(0.35 0.15 25)" },
+              { img: skinHydrated, skin: "hydrated", label: "بشرة مرطبة", tone: "oklch(0.25 0.05 240)" },
+              { img: skinBalanced, skin: "balanced", label: "بشرة موحّدة", tone: "oklch(0.22 0.08 150)" },
+              { img: skinFirm, skin: "firm", label: "بشرة مشدودة", tone: "oklch(0.28 0.08 300)" },
+              { img: skinGlow, skin: "glow", label: "بشرة مشرقة", tone: "oklch(0.35 0.15 25)" },
             ].map((c) => (
               <Link
                 key={c.label}
                 to="/products"
+                search={{ skin: c.skin }}
                 className="group relative rounded-2xl overflow-hidden aspect-[4/5] block shadow-md hover:shadow-xl transition-shadow"
               >
                 <img src={c.img} alt={c.label} loading="lazy" width={1024} height={1024} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
