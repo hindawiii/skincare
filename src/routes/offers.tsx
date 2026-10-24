@@ -22,7 +22,7 @@ export const Route = createFileRoute("/offers")({
   ] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(offersQuery),
   component: Page,
-  errorComponent: ({ error }) => <div className="p-8 text-center">{error.message}</div>,
+  errorComponent: ({ error }) => <div className="p-8 text-center">{error instanceof Error ? error.message : "حدث خطأ"}</div>,
   notFoundComponent: () => <div className="p-8">غير موجود</div>,
 });
 
