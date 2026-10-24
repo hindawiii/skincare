@@ -32,7 +32,7 @@ export const Route = createFileRoute("/")({
   ] }),
   loader: ({ context }) => context.queryClient.ensureQueryData(featuredQuery),
   component: Index,
-  errorComponent: ({ error }) => <div className="p-8 text-center">{error.message}</div>,
+  errorComponent: ({ error }) => <div className="p-8 text-center">{error instanceof Error ? error.message : "حدث خطأ"}</div>,
   notFoundComponent: () => <div className="p-8">غير موجود</div>,
 });
 

@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { ShoppingCart, User, LogOut, Menu, X, Search } from "lucide-react";
+import { ShoppingCart, User, LogOut, Menu, X, Search, Heart } from "lucide-react";
+import { useWishlist } from "@/hooks/useWishlist";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useCart } from "@/hooks/useCart";
@@ -8,6 +9,7 @@ import { Button } from "@/components/ui/button";
 
 export function SiteHeader() {
   const { count } = useCart();
+  const { count: wishCount } = useWishlist();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [email, setEmail] = useState<string | null>(null);
@@ -25,8 +27,14 @@ export function SiteHeader() {
   const nav = [
     { to: "/", label: "الرئيسية", highlight: false },
     { to: "/offers", label: "العروض", highlight: false },
-    { to: "/products", label: "العناية بالبشرة", highlight: false },
     { to: "/boxes", label: "بوكسات العناية", highlight: false },
+  ] as const;
+  const cats = [
+    { category: "skincare", label: "العناية بالبشرة" },
+    { category: "haircare", label: "العناية بالشعر" },
+    { category: "hair_tools", label: "أجهزة الشعر" },
+    { category: "body", label: "الجسم والاستحمام" },
+    { category: "fragrance", label: "العطور" },
   ] as const;
 
   return (
@@ -97,6 +105,12 @@ export function SiteHeader() {
               <Button size="sm" className="rounded-full text-xs md:text-sm">تسجيل الدخول</Button>
             </Link>
           )}
+          <Link to="/wishlist" className="relative p-2 rounded-full hover:bg-muted" aria-label="المفضلة">
+            <Heart className="w-5 h-5" />
+            {wishCount > 0 && (
+              <span className="absolute -top-1 -left-1 bg-primary text-primary-foreground text-[10px] font-bold min-w-5 h-5 px-1 rounded-full flex items-center justify-center">{wishCount}</span>
+            )}
+          </Link>
           <Link to="/cart" className="relative p-2 rounded-full hover:bg-muted" aria-label="السلة">
             <ShoppingCart className="w-5 h-5" />
             {count > 0 && (
@@ -105,7 +119,7 @@ export function SiteHeader() {
               </span>
             )}
           </Link>
-          <button className="md:hidden p-2" onClick={() => setOpen((v) => !v)} aria-label="menu">
+          <button className="md:hidden p-2" onClick={() => setOpen((v) => !v)} aria-label="القائمة" aria-expanded={open}>
             {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
@@ -127,6 +141,11 @@ export function SiteHeader() {
               {n.label}
             </Link>
           ))}
+          {cats.map((c) => (
+            <Link key={c.category} to="/products" search={{ category: c.category }} className="text-sm font-bold whitespace-nowrap hover:text-primary">
+              {c.label}
+            </Link>
+          ))}
         </div>
       </nav>
 
@@ -142,6 +161,11 @@ export function SiteHeader() {
                 className={`text-sm font-semibold py-1 ${n.highlight ? "text-primary" : ""}`}
               >
                 {n.label}
+              </Link>
+            ))}
+            {cats.map((c) => (
+              <Link key={c.category} to="/products" search={{ category: c.category }} onClick={() => setOpen(false)} className="text-sm font-semibold py-1">
+                {c.label}
               </Link>
             ))}
             {!email && (

@@ -1,18 +1,23 @@
 import { Link } from "@tanstack/react-router";
-import { Home, Store, Info, Phone, MapPin, MessageCircle, Facebook, Instagram } from "lucide-react";
+import { Home, Store, Info, Phone, MapPin, MessageCircle, Mail, Truck, RotateCcw, HelpCircle } from "lucide-react";
+import { STORE, whatsappLink } from "@/lib/store-info";
 
 export function SiteFooter() {
   const quickLinks = [
     { to: "/", label: "الرئيسية", Icon: Home },
     { to: "/products", label: "المتجر", Icon: Store },
     { to: "/about", label: "من نحن", Icon: Info },
-    { to: "/account", label: "تواصل معنا", Icon: Phone },
+    { to: "/contact", label: "تواصل معنا", Icon: Phone },
+    { to: "/shipping", label: "الشحن والتوصيل", Icon: Truck },
+    { to: "/returns", label: "الاستبدال والاسترجاع", Icon: RotateCcw },
+    { to: "/faq", label: "الأسئلة الشائعة", Icon: HelpCircle },
   ] as const;
 
   const contact = [
-    { text: "أم درمان — شارع الوادي", Icon: MapPin, dir: "rtl" as const },
-    { text: "+249 900 776 688", Icon: Phone, dir: "ltr" as const },
-    { text: "sobeauty.one@gmail.com", Icon: MessageCircle, dir: "ltr" as const },
+    { text: STORE.address, Icon: MapPin, dir: "rtl" as const, href: undefined },
+    { text: STORE.phoneDisplay, Icon: Phone, dir: "ltr" as const, href: `tel:${STORE.phoneE164}` },
+    { text: STORE.email, Icon: Mail, dir: "ltr" as const, href: `mailto:${STORE.email}` },
+    { text: "واتساب", Icon: MessageCircle, dir: "rtl" as const, href: whatsappLink() },
   ];
 
   return (
@@ -61,21 +66,19 @@ export function SiteFooter() {
         <div className="flex flex-col items-center md:items-start text-center md:text-right">
           <h4 className="text-lg font-bold mb-5" style={{ fontFamily: "var(--font-display)" }}>معلومات التواصل</h4>
           <ul className="space-y-4 text-sm w-full max-w-xs">
-            {contact.map(({ text, Icon, dir }) => (
-              <li key={text} className="flex items-center gap-3 justify-end">
-                <span dir={dir}>{text}</span>
-                <Icon className="w-4 h-4 shrink-0" />
+            {contact.map(({ text, Icon, dir, href }) => (
+              <li key={text}>
+                {href ? (
+                  <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer" className="flex items-center gap-3 justify-end hover:opacity-80">
+                    <span dir={dir}>{text}</span>
+                    <Icon className="w-4 h-4 shrink-0" />
+                  </a>
+                ) : (
+                  <span className="flex items-center gap-3 justify-end"><span dir={dir}>{text}</span><Icon className="w-4 h-4 shrink-0" /></span>
+                )}
               </li>
             ))}
           </ul>
-          <div className="flex gap-3 mt-6 justify-end w-full max-w-xs">
-            <a href="#" aria-label="instagram" className="w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center">
-              <Instagram className="w-4 h-4" />
-            </a>
-            <a href="#" aria-label="facebook" className="w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center">
-              <Facebook className="w-4 h-4" />
-            </a>
-          </div>
         </div>
       </div>
 

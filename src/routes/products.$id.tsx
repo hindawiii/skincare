@@ -45,7 +45,7 @@ export const Route = createFileRoute("/products/$id")({
     ] };
   },
   component: Page,
-  errorComponent: ({ error }) => <div className="p-8 text-center">{error.message}</div>,
+  errorComponent: ({ error }) => <div className="p-8 text-center">{error instanceof Error ? error.message : "حدث خطأ"}</div>,
   notFoundComponent: () => (
     <div className="min-h-screen flex flex-col"><SiteHeader />
     <main className="flex-1 p-8 text-center"><h1 className="text-2xl font-bold">المنتج غير موجود</h1><Link to="/products" className="text-primary underline">عودة</Link></main>
