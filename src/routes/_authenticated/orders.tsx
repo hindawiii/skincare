@@ -1,3 +1,4 @@
+import { formatPrice } from "@/lib/store-info";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
@@ -40,10 +41,10 @@ function OrdersPage() {
                 <div className="text-sm text-muted-foreground mb-2">{new Date(o.created_at).toLocaleDateString("ar")}</div>
                 <ul className="text-sm space-y-1 mb-2">
                   {o.order_items?.map((i) => (
-                    <li key={i.id}>{i.product_name} × {i.quantity} — {(Number(i.unit_price) * i.quantity).toFixed(2)} ج.س</li>
+                    <li key={i.id}>{i.product_name} × {i.quantity} — {formatPrice(Number(i.unit_price) * i.quantity)}</li>
                   ))}
                 </ul>
-                <div className="font-bold">الإجمالي: {Number(o.total).toFixed(2)} ج.س</div>
+                <div className="font-bold">الإجمالي: {formatPrice(o.total)}</div>
               </div>
             ))}
           </div>
